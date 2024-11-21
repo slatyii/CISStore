@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+//import static jdk.internal.org.jline.utils.ExecHelper.exec;
+
 public class Store{
     static ArrayList<CISItem> cisItems;
 
@@ -11,24 +13,24 @@ public class Store{
         cisItems.add(book);
     }
 
-    public void addPhone(Phone phone){
+    void addPhone(Phone phone){
         cisItems.add(phone);
     }
 
-    public void addMagazine(Magazine magazine){
+    void addMagazine(Magazine magazine){
 
     }
 
-    public void addArduino(Arduino arduino){
+    void addArduino(Arduino arduino){
 
     }
 
-    public void updatePhones(String location){
+    void updatePhones(String location){
         for(int i = 0; i < getAllPhones().size(); i ++){
             getAllPhones().get(i).location = location;
         }
     }
-    public ArrayList<Phone> getAllPhones(){
+    ArrayList<Phone> getAllPhones(){
         ArrayList<Phone> all = new ArrayList<>();
         for(CISItem item : cisItems){
             if(item.getClass() == Phone.class) all.add((Phone)item);
@@ -36,6 +38,43 @@ public class Store{
         return all;
     }
 
+    ArrayList<CISItem> getItems(String itemType){
+        ArrayList<CISItem> all = new ArrayList<>();
+        if(itemType.equalsIgnoreCase("Phone")){
+            for(CISItem item : cisItems){
+                if(item.getClass() == Phone.class) all.add(item);
+            }
+            return all;
+        }else if(itemType.equalsIgnoreCase("Book")){
+            for(CISItem item : cisItems){
+                if(item.getClass() == Book.class) all.add(item);
+            }
+            return all;
+
+        }else if(itemType.equalsIgnoreCase("Magazine")){
+            for(CISItem item : cisItems){
+                if(item.getClass() == Magazine.class) all.add(item);
+            }
+            return all;
+
+        }else if(itemType.equalsIgnoreCase("Arduino")){
+            for(CISItem item : cisItems){
+                if(item.getClass() == Arduino.class) all.add(item);
+            }
+            return all;
+        }
+
+        return null;
+    }
+    void updateItems(String itemType, String property, String value){
+        ArrayList<CISItem> items = getItems(itemType);
+        for(CISItem i : items){
+            if(property.equalsIgnoreCase("name")) i.name = value;
+            if(property.equalsIgnoreCase("location")) i.location = value;
+            if(property.equalsIgnoreCase("price")) i.price = Integer.parseInt(value);
+            if(property.equalsIgnoreCase("description")) i.description = value;
+        }
+    }
 }
 
 

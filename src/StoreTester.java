@@ -5,12 +5,15 @@ import static org.junit.Assert.assertTrue;
 
 
 public class StoreTester {
-    Store store = new Store();
+    static Store store = new Store();
 
     public static void main(String[] args){
         StoreTester s = new StoreTester();
         s.addBookTest();
         s.bookAndPhoneTest();
+        s.phonesTest();
+        s.itemsTest();
+
     }
     void addBookTest(){
         Book b = new Book();
@@ -40,5 +43,17 @@ public class StoreTester {
         }
 
 
+    }
+
+    void itemsTest(){
+        for(CISItem i : store.getItems("Phone")) System.out.println("This is " + i.toString());
+        for(CISItem i : store.getItems("book")) System.out.println("This is " + i.toString());
+        for(CISItem i : store.getItems("ARDUINO")) System.out.println("This is " + i.toString());
+    }
+
+    void updateTest(){
+        System.out.println();
+        store.updateItems("phone", "location", "Room 511");
+        for(CISItem i : store.getItems("Phone")) System.out.println("Location is " + i.getLocation());
     }
 }
